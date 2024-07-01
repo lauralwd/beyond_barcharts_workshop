@@ -59,6 +59,8 @@ that way it works in greyscale print.
 
 ```
 
+-------====== Wait here please, we'll plenary get up to speed in a second ===========------
+
 ## point/count alternatives
 
 ### dotplot
@@ -81,6 +83,8 @@ Use `geom_dotplot(binaxis = 'y',stackdir = 'center')`
 ```{r}
 
 ```
+
+-------====== Wait here please, we'll plenary get up to speed in a second ===========------
 
 # Combining shapes!
 
@@ -143,6 +147,16 @@ Can you manage?
 
 Now make your favourite alternative, maybe a dotplot with a crossbar?
 Or some other shape you may have found in the ggdist package.
+
+```{r}
+
+```
+
+## Challenge!
+
+Feeling up to a challenge, try to re-create this:
+
+![](images/clipboard-819503216.png)
 
 ```{r}
 

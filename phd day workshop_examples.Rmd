@@ -64,6 +64,8 @@ ggplot(iris,mapping = aes(x = Sepal.Length,col=Species,linetype = Species)) +
   geom_density()
 ```
 
+-------====== Wait here please, we'll plenary get up to speed in a second ===========------
+
 ## point/count alternatives
 
 ### dotplot
@@ -89,6 +91,8 @@ ggplot(iris,mapping = aes(x = Sepal.Length,fill= Species)) +
 ggplot(iris,mapping = aes(y = Sepal.Length,x= Species)) +
   geom_boxplot()
 ```
+
+-------====== Wait here please, we'll plenary get up to speed in a second ===========------
 
 # Combining shapes!
 
@@ -122,6 +126,8 @@ ggplot(iris,mapping = aes(y = Sepal.Length,x= Species)) +
   stat_summary(geom = 'crossbar',fun=median,col = 'red') + 
   theme_classic()
 ```
+
+-------====== Wait here please, we'll plenary get up to speed in a second ===========------
 
 # Extension packages
 
@@ -162,4 +168,31 @@ Or some other shape you may have found in the ggdist package.
 
 ```{r}
 
+```
+
+## Challenge!
+
+Feeling up to a challenge, try to re-create this:
+
+![](images/clipboard-819503216.png)
+
+```{r}
+iris_long <- pivot_longer(iris, -Species, names_to = "variable", values_to = "value")
+iris_long$variable <- factor(iris_long$variable,
+                             levels = c("Petal.Width", 
+                                        "Sepal.Width", 
+                                        "Petal.Length" ,
+                                        "Sepal.Length"))
+
+
+
+# make a dotplot with ggplot
+ggplot(iris_long, aes(x = variable, y = value, fill = variable)) +
+  #geom_dotplot(binaxis = "y", stackdir = "center", position = "dodge",alpha = .5) +
+  geom_violin() +
+  facet_wrap(~Species, scales = "free_y") +
+  stat_summary(fun = mean, geom = "pointrange", shape = 18, size = 1, color = "black",show.legend = F) +
+  stat_summary(fun = mean,geom = 'line', aes(group = 1), size = 1) +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
 ```
