@@ -1,0 +1,165 @@
+---
+title: "Beyond barcharts"
+output: html_notebook
+---
+
+# Bar chart alternatives
+
+Let's meet the iris dataset!
+Read more about it in the R help page for iris
+
+```{r}
+head(iris2)
+```
+
+## ggplot basics
+
+Let's do ggplot basics now!
+
+Make a jitterplot with `geom_jitter()` Set the `x aesthetic` to `Species` and the `y aesthetic` to `Sepal.Length`
+
+```{r}
+ggplot(iris,mapping = aes(y = Sepal.Length,x=Species)) +
+  geom_jitter()
+```
+
+## Barchart in ggplot
+
+Let's make the same plot, but as a barchart.
+Do you already know `stat_summary()`?
+It's ggplot's best kept secret.
+Replace `geom_jitter()` with `stat_summary(geom = 'bar')` and make a barchart.
+
+Second, add `stat_summary(geom = 'errorbar')`
+
+```{r}
+ggplot(iris,mapping = aes(y = Sepal.Length,x=Species)) +
+  stat_summary(geom = 'bar') +
+  stat_summary(geom = 'errorbar')
+```
+
+That's your barchart right there!
+Is it a beauty, no not quite, but we can fine-tune that in a later stage.
+
+## Density alternatives
+
+Let's make a couple alternatives.
+
+### try `geom_violin()`
+
+```{r}
+ggplot(iris,mapping = aes(y = Sepal.Length,x=Species)) +
+   geom_violin()
+```
+
+### try `geom_density`
+
+Replace the `x` aesthetic for `col = Species` , and maybe swap x and y axes.
+
+You can add the `linetype` aesthetic as well!
+that way it works in greyscale print.
+
+```{r}
+ggplot(iris,mapping = aes(x = Sepal.Length,col=Species,linetype = Species)) +
+  geom_density()
+```
+
+## point/count alternatives
+
+### dotplot
+
+Similar to a violin plot, but shows the actual data points.
+Use `geom_dotplot(binaxis = 'y',stackdir = 'center')`
+
+```{r}
+ggplot(iris,mapping = aes(y = Sepal.Length,x= Species)) +
+  geom_dotplot(binaxis = 'y',stackdir = 'center')
+```
+
+### histogram
+
+```{r}
+ggplot(iris,mapping = aes(x = Sepal.Length,fill= Species)) +
+  geom_histogram(position = 'identity',alpha=.6)
+```
+
+### boxplot
+
+```{r}
+ggplot(iris,mapping = aes(y = Sepal.Length,x= Species)) +
+  geom_boxplot()
+```
+
+# Combining shapes!
+
+ggplot can layer shapes on top of one another.
+We can use this to our advantage, and add more data in our figure.
+
+### Boxplot with jitter
+
+Make a boxplot like before, but add the datapoints with `geom_jitter`.
+Make the datapoints transparent and grey if you know how.
+
+```{r}
+ggplot(iris,mapping = aes(y = Sepal.Length,x= Species)) +
+  geom_boxplot() +
+  geom_jitter(alpha = .5, colour = 'grey', width = .2) +
+  theme_classic()
+```
+
+### dotplot with median
+
+Was that too easy, then here is a hard one!
+
+Next, make a dotplot, but add a red line that displays the median.
+Use stat summary and the cheatsheet.
+
+*hint: `stat_summary()` has a `fun=` argument for determining what function you want used to summarise the data.*
+
+```{r}
+ggplot(iris,mapping = aes(y = Sepal.Length,x= Species)) +
+  geom_dotplot(binaxis = 'y',stackdir = 'center') +
+  stat_summary(geom = 'crossbar',fun=median,col = 'red') + 
+  theme_classic()
+```
+
+# Extension packages
+
+## GGdist
+
+ggdist, deals with displaying distributions, perfect!
+Have a look at their cheatsheet.
+[ggdist cheatsheet](https://github.com/mjskay/ggdist/blob/master/figures-source/cheat_sheet-slabinterval.pdf){.uri}
+
+Try a ggdist visualisation on the iris dataset.
+
+```{r}
+ggplot(iris,mapping = aes(y = Sepal.Length,x= Species,shape = Species)) +
+  ggdist::stat_halfeye() 
+
+```
+
+# A figure of your own?
+
+Do you have a (barchart?) figure of your own at hand?
+Maybe play with that!
+I'll be around to help out.
+
+```{r}
+
+```
+
+## Alternative:
+
+Formatting your data into the right shape is as hard as working ggplot itself.
+I'd like you to try to make a boxplot of the irisdataset.
+On the x axis, should be the different lengths that were measured.
+The fill colour should be the Species, and on the y axis the actual measured length.
+Can you manage?
+
+Now make your favourite alternative, maybe a dotplot with a crossbar?
+Or some other shape you may have found in the ggdist package.
+
+```{r}
+
+```
